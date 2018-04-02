@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.biz.mapper.SaleMainDataMapper" >
+    <resultMap id="BaseMainDataResultMap" type="com.biz.domain.SaleMainData" >
+        <id column="id" property="id"/>
+        <result column="cus_name" property="cusName"/>
+        <result column="begin_date" property="beginDate"/>
+        <result column="update_date" property="updateDate"/>
+        <result column="seen_policymaker" property="seenPolicymaker"/>
+        <result column="policymaker_position" property="policymakerPosition"/>
+        <result column="done_policymaker" property="donePolicymaker"/>
+        <result column="done_policymaker_position" property="donePolicymakerPosition"/>
+        <result column="is_real" property="isReal"/>
+        <result column="is_real_comment" property="isRealComment"/>
+        <result column="five_user_up" property="fiveUserUp"/>
+        <result column="five_user_up_comment" property="fiveUserUpComment"/>
+        <result column="contact_name" property="contactName"/>
+        <result column="contact_phone" property="contactPhone"/>
+        <result column="contact_email" property="contactEmail"/>
+        <result column="cus_emp_num" property="cusEmpNum" jdbcType="INTEGER" />
+        <result column="cus_city" property="cusCity"/>
+        <result column="launch_time" property="launchTime"/>
+        <result column="close_time" property="closeTime"/>
+        <result column="next_policymaker_action" property="nextPolicymakerAction"/>
+        <result column="next_req_action" property="nextReqAction"/>
+        <result column="true_close_time" property="trueCloseTime"/>
+        <result column="status" property="status"/>
+        <result column="uploads" property="uploads"/>
+        <result column="assign" property="assign"/>
+        <result column="important_req" property="importantReq"/>
+        <result column="log_info" property="logInfo"/>
+        <result column="priority_level" property="priorityLevel"/>
+        <result column="track" property="track"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, cus_name, begin_date, update_date, seen_policymaker, policymaker_position, done_policymaker,
+        done_policymaker_position, is_real, is_real_comment, five_user_up, five_user_up_comment,
+        contact_name, contact_phone, contact_email, cus_emp_num, cus_city, launch_time, close_time,
+        next_policymaker_action, next_req_action, true_close_time, status, uploads, assign, important_req,
+        log_info, priority_level
+    </sql>
+
+    <!-- 动态查询条件sql片段 -->
+    <sql id="Base_query_criteria" >
+        <if test="id != null" >
+            id = #{id}
+        </if>
+        <if test="cusName != null" >
+            AND cus_name = #{cusName}
+        </if>
+        <if test="beginDate != null" >
+            AND begin_date = #{beginDate}
+        </if>
+        <if test="updateDate != null" >
+            AND update_date = #{updateDate}
+        </if>
+        <if test="seenPolicymaker != null" >
+            AND seen_policymaker = #{seenPolicymaker}
+        </if>
+        <if test="policymakerPosition != null" >
+            AND policymaker_position = #{policymakerPosition}
+        </if>
+        <if test="donePolicymaker != null" >
+            AND done_policymaker = #{donePolicymaker}
+        </if>
+        <if test="donePolicymakerPosition != null" >
+            AND done_policymaker_position = #{donePolicymakerPosition}
+        </if>
+        <if test="isReal != null" >
+            AND is_real = #{isReal}
+        </if>
+        <if test="isRealComment != null" >
+            AND is_real_comment = #{isRealComment}
+        </if>
+        <if test="fiveUserUp != null" >
+            AND five_user_up = #{fiveUserUp}
+        </if>
+        <if test="fiveUserUpComment != null" >
+            AND five_user_up_comment = #{fiveUserUpComment}
+        </if>
+        <if test="contactName != null" >
+            AND contact_name = #{contactName}
+        </if>
+        <if test="contactPhone != null" >
+            AND contact_phone = #{contactPhone}
+        </if>
+        <if test="contactEmail != null" >
+            AND contact_email = #{contactEmail}
+        </if>
+        <if test="cusEmpNum != null" >
+            AND cus_emp_num = #{cusEmpNum}
+        </if>
+        <if test="cusCity != null" >
+            AND cus_city = #{cusCity}
+        </if>
+        <if test="launchTime != null" >
+            AND launch_time = #{launchTime}
+        </if>
+        <if test="closeTime != null" >
+            AND close_time = #{closeTime}
+        </if>
+        <if test="nextPolicymakerAction != null" >
+            AND next_policymaker_action = #{nextPolicymakerAction}
+        </if>
+        <if test="nextReqAction != null" >
+            AND next_req_action = #{nextReqAction}
+        </if>
+        <if test="trueCloseTime != null" >
+            AND true_close_time = #{trueCloseTime}
+        </if>
+        <if test="status != null" >
+            AND status = #{status}
+        </if>
+        <if test="uploads != null" >
+            AND uploads = #{uploads}
+        </if>
+        <if test="assign != null" >
+            AND assign = #{assign}
+        </if>
+        <if test="importantReq != null" >
+            AND important_req = #{importantReq}
+        </if>
+        <if test="logInfo != null" >
+            AND log_info = #{logInfo}
+        </if>
+        <if test="priorityLevel != null" >
+            AND priority_level = #{priorityLevel}
+        </if>
+    </sql>
+
+    <!-- 新增数据 -->
+    <insert id="save" parameterType="saleMainData" useGeneratedKeys="true" keyProperty="id">
+        insert into sale_main_data
+            (id, cus_name, begin_date, update_date, seen_policymaker, policymaker_position, done_policymaker,
+            done_policymaker_position, is_real, is_real_comment, five_user_up, five_user_up_comment,
+            contact_name, contact_phone, contact_email, cus_emp_num, cus_city, launch_time, close_time,
+            next_policymaker_action, next_req_action, true_close_time, status, uploads, assign, important_req,
+            log_info, priority_level)
+        values
+            (#{id}, #{cusName}, #{beginDate}, #{updateDate}, #{seenPolicymaker}, #{policymakerPosition},
+            #{donePolicymaker}, #{donePolicymakerPosition}, #{isReal}, #{isRealComment}, #{fiveUserUp},
+            #{fiveUserUpComment}, #{contactName}, #{contactPhone}, #{contactEmail}, #{cusEmpNum}, #{cusCity},
+            #{launchTime}, #{closeTime}, #{nextPolicymakerAction}, #{nextReqAction}, #{trueCloseTime}, #{status},
+            #{uploads}, #{assign}, #{importantReq}, #{logInfo}, #{priorityLevel})
+    </insert>
+
+    <!-- 查询用户表中的所有数据 -->
+    <select id="selectAll" resultMap="BaseMainDataResultMap">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            sale_main_data
+        order by
+            begin_date desc
+    </select>
+
+    <!-- 关联查询用户表中的所有数据 -->
+    <select id="associativeSelectAll" resultMap="BaseMainDataResultMap">
+        select
+            m.id,m.cus_name,m.begin_date,m.update_date,m.seen_policymaker,
+            m.policymaker_position,m.done_policymaker,m.done_policymaker_position,
+            m.is_real,m.is_real_comment,m.five_user_up,m.five_user_up_comment,
+            m.contact_name,m.contact_phone,m.contact_email,m.important_req,
+            m.cus_emp_num,m.cus_city,m.launch_time,m.close_time,m.next_policymaker_action,
+            m.next_req_action,m.true_close_time,m.status,m.log_info,m.priority_level, u.name as uploads , u2.name as assign,temp_track.track_count as track, temp_track2.track_count as begintrack, temp_track.track_count -  temp_track2.track_count as responsetrack
+        from
+            sale_main_data m left join sale_login_user u on m.uploads = u.id left join sale_login_user u2 on m.assign = u2.id
+            left join (select cusid,count(id) as track_count from sale_track where to_days(happendon) = to_days(now()) group by cusid) temp_track on m.id=temp_track.cusid
+            left join (select cusid,count(id) as track_count from sale_track where to_days(happendon) = to_days(now()) and type=1 group by cusid) temp_track2 on m.id=temp_track2.cusid
+            order by m.priority_level asc , m.begin_date desc
+    </select>
+
+    <!-- 关联查询用户表中的所有数据过滤ISReal字段 -->
+    <select id="associativeSelectAllWithIsReal" resultMap="BaseMainDataResultMap">
+        select
+        m.id,m.cus_name,m.begin_date,m.update_date,m.seen_policymaker,
+        m.policymaker_position,m.done_policymaker,m.done_policymaker_position,
+        m.is_real,m.is_real_comment,m.five_user_up,m.five_user_up_comment,
+        m.contact_name,m.contact_phone,m.contact_email,m.important_req,
+        m.cus_emp_num,m.cus_city,m.launch_time,m.close_time,m.next_policymaker_action,
+        m.next_req_action,m.true_close_time,m.status,m.log_info,m.priority_level, u.name as uploads , u2.name as assign,temp_track.track_count as track, temp_track2.track_count as begintrack, temp_track.track_count -  temp_track2.track_count as responsetrack
+        from
+        sale_main_data m left join sale_login_user u on m.uploads = u.id left join sale_login_user u2 on m.assign = u2.id
+        left join (select cusid,count(id) as track_count from sale_track where to_days(happendon) = to_days(now()) group by cusid) temp_track on m.id=temp_track.cusid
+        where m.is_real <![CDATA[<>]]> 'NO' order by m.priority_level asc , m.begin_date desc
+    </select>
+
+    <!-- 关联查询用户表中的所有数据过滤ISReal字段 -->
+    <select id="associativeSelectAllWithSeenPol" resultMap="BaseMainDataResultMap">
+        select
+        m.id,m.cus_name,m.begin_date,m.update_date,m.seen_policymaker,
+        m.policymaker_position,m.done_policymaker,m.done_policymaker_position,
+        m.is_real,m.is_real_comment,m.five_user_up,m.five_user_up_comment,
+        m.contact_name,m.contact_phone,m.contact_email,m.important_req,
+        m.cus_emp_num,m.cus_city,m.launch_time,m.close_time,m.next_policymaker_action,
+        m.next_req_action,m.true_close_time,m.status,m.log_info,m.priority_level, u.name as uploads , u2.name as assign,temp_track.track_count as track, temp_track2.track_count as begintrack, temp_track.track_count -  temp_track2.track_count as responsetrack
+        from
+        sale_main_data m left join sale_login_user u on m.uploads = u.id left join sale_login_user u2 on m.assign = u2.id
+        left join (select cusid,count(id) as track_count from sale_track where to_days(happendon) = to_days(now()) group by cusid) temp_track on m.id=temp_track.cusid
+        where m.seen_policymaker <![CDATA[<>]]> 'N' order by m.priority_level asc , m.begin_date desc
+    </select>
+
+    <!-- 关联查询用户表中的所有数据过滤ISReal字段 -->
+    <select id="associativeSelectAllWithFiveUp" resultMap="BaseMainDataResultMap">
+        select
+        m.id,m.cus_name,m.begin_date,m.update_date,m.seen_policymaker,
+        m.policymaker_position,m.done_policymaker,m.done_policymaker_position,
+        m.is_real,m.is_real_comment,m.five_user_up,m.five_user_up_comment,
+        m.contact_name,m.contact_phone,m.contact_email,m.important_req,
+        m.cus_emp_num,m.cus_city,m.launch_time,m.close_time,m.next_policymaker_action,
+        m.next_req_action,m.true_close_time,m.status,m.log_info,m.priority_level, u.name as uploads , u2.name as assign,temp_track.track_count as track, temp_track2.track_count as begintrack, temp_track.track_count -  temp_track2.track_count as responsetrack
+        from
+        sale_main_data m left join sale_login_user u on m.uploads = u.id left join sale_login_user u2 on m.assign = u2.id
+        left join (select cusid,count(id) as track_count from sale_track where to_days(happendon) = to_days(now()) group by cusid) temp_track on m.id=temp_track.cusid
+        where m.five_user_up <![CDATA[<>]]> 'NO' order by m.priority_level asc , m.begin_date desc
+    </select>
+
+    <!-- 多条件查询 -->
+    <select id="findSaleMainDataBySelective" resultType="saleMainData" resultMap="BaseMainDataResultMap">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM
+            sale_main_data
+        <where>
+            <include refid="Base_query_criteria"/>
+        </where>
+    </select>
+
+    <!-- 根据id查询 -->
+    <select id="selectById" parameterType="java.lang.String" resultMap="BaseMainDataResultMap">
+        select
+            <include refid="Base_Column_List" />
+        from
+            sale_main_data
+        where
+            id = #{id}
+    </select>
+
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <!-- 根据Example统计查询 -->
+    <select id="countByExample" parameterType="com.biz.domain.SaleMainDataExample" resultType="java.lang.Integer" >
+        select count(*) from sale_main_data
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+
+    <!-- 根据Example动态查询 -->
+    <select id="selectByExample" parameterType="saleMainDataExample" resultMap="BaseMainDataResultMap">
+        select
+            <if test="distinct" >
+                distinct
+            </if>
+            <include refid="Base_Column_List" />
+        from
+            sale_main_data
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+
+    <!-- 多条件统计查询 -->
+    <select id="countBySelective" parameterType="saleMainData" resultType="java.lang.Integer" >
+        select count(*) from sale_main_data
+        <where>
+            <include refid="Base_query_criteria" />
+        </where>
+    </select>
+
+
+    <!-- 根据ID修改优先级 -->
+    <update id="updatePriById" parameterType="saleMainData" >
+        update
+        sale_main_data
+        set
+        update_date = #{updateDate},
+        uploads = #{uploads},
+        priority_level = #{priorityLevel}
+        where
+        id = #{id}
+    </update>
+
+    <!-- 根据ID修改数据 -->
+    <update id="updateById" parameterType="saleMainData" >
+        update
+            sale_main_data
+        set
+            cus_name = #{cusName},
+            update_date = #{updateDate},
+            seen_policymaker = #{seenPolicymaker},
+            policymaker_position = #{policymakerPosition},
+            done_policymaker = #{donePolicymaker},
+            done_policymaker_position = #{donePolicymakerPosition},
+            is_real = #{isReal},
+            is_real_comment = #{isRealComment},
+            five_user_up = #{fiveUserUp},
+            five_user_up_comment = #{fiveUserUpComment},
+            contact_name = #{contactName},
+            contact_phone = #{contactPhone},
+            contact_email = #{contactEmail},
+            cus_emp_num = #{cusEmpNum},
+            cus_city = #{cusCity},
+            launch_time = #{launchTime},
+            close_time = #{closeTime},
+            next_policymaker_action = #{nextPolicymakerAction},
+            next_req_action = #{nextReqAction},
+            true_close_time = #{trueCloseTime},
+            uploads = #{uploads},
+            assign = #{assign},
+            priority_level = #{priorityLevel}
+        where
+            id = #{id}
+    </update>
+
+    <!-- 根据ID动态修改数据 -->
+    <update id="updateByIdSelective" parameterType="saleMainData" >
+        update
+            sale_main_data
+        <set >
+            <if test="cusName != null" >
+                cus_name = #{cusName},
+            </if>
+            <if test="beginDate != null" >
+                begin_date = #{beginDate},
+            </if>
+            <if test="updateDate != null" >
+                update_date = #{updateDate},
+            </if>
+            <if test="seenPolicymaker != null" >
+                seen_policymaker = #{seenPolicymaker},
+            </if>
+            <if test="policymakerPosition != null" >
+                policymaker_position = #{policymakerPosition},
+            </if>
+            <if test="donePolicymaker != null" >
+                done_policymaker = #{donePolicymaker},
+            </if>
+            <if test="donePolicymakerPosition != null" >
+                done_policymaker_position = #{donePolicymakerPosition},
+            </if>
+            <if test="isReal != null" >
+                is_real = #{isReal},
+            </if>
+            <if test="isRealComment != null" >
+                is_real_comment = #{isRealComment},
+            </if>
+            <if test="fiveUserUp != null" >
+                five_user_up = #{fiveUserUp},
+            </if>
+            <if test="fiveUserUpComment != null" >
+                five_user_up_comment = #{fiveUserUpComment},
+            </if>
+            <if test="contactName != null" >
+                contact_name = #{contactName},
+            </if>
+            <if test="contactPhone != null" >
+                contact_phone = #{contactPhone},
+            </if>
+            <if test="contactEmail != null" >
+                contact_email = #{contactEmail},
+            </if>
+            <if test="cusEmpNum != null" >
+                cus_emp_num = #{cusEmpNum},
+            </if>
+            <if test="cusCity != null" >
+                cus_city = #{cusCity},
+            </if>
+            <if test="launchTime != null" >
+                launch_time = #{launchTime},
+            </if>
+            <if test="closeTime != null" >
+                close_time = #{closeTime},
+            </if>
+            <if test="nextPolicymakerAction != null" >
+                next_policymaker_action = #{nextPolicymakerAction},
+            </if>
+            <if test="nextReqAction != null" >
+                next_req_action = #{nextReqAction},
+            </if>
+            <if test="trueCloseTime != null" >
+                true_close_time = #{trueCloseTime},
+            </if>
+            <if test="status != null" >
+                status = #{status},
+            </if>
+            <if test="uploads != null" >
+                uploads = #{uploads},
+            </if>
+            <if test="assign != null" >
+                assign = #{assign},
+            </if>
+            <if test="importantReq != null" >
+                important_req = #{importantReq},
+            </if>
+            <if test="logInfo != null" >
+                log_info = #{logInfo},
+            </if>
+            <if test="priorityLevel != null" >
+                priority_level = #{priorityLevel},
+            </if>
+        </set>
+        where
+            id = #{id}
+    </update>
+
+    <!-- 根据ID删除数据 -->
+    <delete id="deleteById" parameterType="java.lang.String" >
+        delete from sale_main_data where id = #{id}
+    </delete>
+
+    <!--根据ID批量删除数据-->
+    <delete id="deleteByIds" parameterType="list">
+        delete from sale_main_data
+        <where>
+            <!-- id in 写在这里可以，也可以写在open中也行 -->
+            id in
+            <foreach collection="list" item="id" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </where>
+    </delete>
+
+    <!-- 删除所有数据 -->
+    <delete id="deleteAll" parameterType="java.lang.String" >
+        delete from sale_main_data
+    </delete>
+
+    <!-- 关闭/重新打开status状态 -->
+    <update id="resetSaleMainDataStatusById" parameterType="java.lang.String">
+        UPDATE sale_main_data SET status=#{1} WHERE id=#{0}
+    </update>
+</mapper>

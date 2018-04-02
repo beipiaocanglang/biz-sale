@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+							http://www.springframework.org/schema/aop
+							http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+							http://www.springframework.org/schema/tx
+							http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+							http://www.springframework.org/schema/jdbc
+							http://www.springframework.org/schema/jdbc/spring-jdbc-4.1.xsd
+							http://www.springframework.org/schema/context
+							http://www.springframework.org/schema/context/spring-context-4.1.xsd
+							http://www.springframework.org/schema/util
+							http://www.springframework.org/schema/util/spring-util-4.1.xsd
+							http://www.springframework.org/schema/mvc
+							http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">
+
+	<context:property-placeholder location="classpath:resources.properties"  file-encoding="UTF-8"/>
+
+	<context:component-scan base-package="com.biz"/>
+
+	<!-- 注解驱动：默认加载 RequestMappingHandlerMapping，RequestMappingHandlerAdapter-->
+	<mvc:annotation-driven/>
+
+	<!--拦截器-->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/login.html"/>
+			<mvc:exclude-mapping path="/assets/**"/>
+			<mvc:exclude-mapping path="/api/user/login/**"/>
+			<bean class="com.biz.interceptor.SpringInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<!--图片上传-->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="maxUploadSize" value="10485760" /><!-- 1024 * 1024 * 10 = 10m -->
+		<property name="maxInMemorySize" value="8192" /><!-- 1024 * 8 = 8k -->
+	</bean>
+
+
+	<bean id="_jacksonObjectMapper" class="com.biz.common.JacksonObjectMapperFactory"></bean>
+
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+					<property name="writeAcceptCharset" value="false"/>
+					<property name="supportedMediaTypes">
+						<list>
+							<value>text/html;charset=utf-8</value>
+							<value>text/plain;charset=utf-8</value>
+						</list>
+					</property>
+				</bean>
+				<!--json转换工具-->
+				<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+					<property name="objectMapper" ref="_jacksonObjectMapper" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!--读取messages.properties-->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="defaultEncoding" value ="UTF-8" />
+        <property name="basenames">
+            <list>
+                <value>messages</value>
+            </list>
+        </property>
+    </bean>
+
+	<!-- Spring 统一日志处理   LogInterceptor拦截器 配置　-->
+	<bean id="logLnterceptor" class="com.biz.interceptor.LogInterceptor"/>
+
+	<!-- Bean自动代理处理器 配置-->
+	<bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator" >
+		<property name="interceptorNames">
+			<list>
+				<value>logLnterceptor</value>
+			</list>
+		</property>
+		<property name="beanNames">
+			<!-- 配置需要进行日志记录的Service和Dao -->
+			<list>
+				<!--
+                    配置所有Service结尾命名的Bean，即所有Service层的类都要经过exceptionHandler异常处理类
+                    Service层的Bean ID 命名要以Service结尾
+                -->
+				<value>*Impl</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 第三步：注册处理器映射器/处理器适配器 ，添加conversion-service属性-->
+	<mvc:annotation-driven conversion-service="conversionService"/>
+
+	<!-- 第二步： 创建convertion-Service ，并注入dateConvert-->
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<set>
+				<ref bean="StringToDate"/>
+				<ref bean="DateToString"/>
+			</set>
+		</property>
+	</bean>
+	<!-- 创建自定义日期转换规则 -->
+	<bean id="StringToDate" class="com.biz.util.StringToDate"></bean>
+	<bean id="DateToString" class="com.biz.util.DateToString"></bean>
+
+	<!--放行静态资源-->
+	<mvc:default-servlet-handler/>
+	<!-- 放行静态资源  或者使用<mvc:default-servlet-handler/>-->
+	<mvc:resources location="/WEB-INF/" mapping="*.html"/>
+
+</beans>

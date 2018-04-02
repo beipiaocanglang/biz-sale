@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.biz.mapper.SaleTrackMapper">
+    <resultMap id="BaseTrackDataResultMap" type="com.biz.domain.SaleTrack">
+        <id column="id" property="id"/>
+        <result column="cusid" property="cusId"/>
+        <result column="createdon" property="createdOn"/>
+        <result column="happendon" property="happendOn"/>
+        <result column="type" property="type"/>
+        <result column="comment" property="comment"/>
+        <result column="updateuser" property="updateUser"/>
+        <result column="deleted" property="deleted"/>
+        <result column="flowparent" property="flowParent"/>
+        <result column="username" property="userName"/>
+        <result column="cus_name" property="cusName"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, cusid, createdon, happendon, type, comment, updateuser, deleted, flowparent
+    </sql>
+
+
+    <!-- 查询用户表中的所有数据 -->
+    <select id="selectAll" resultMap="BaseTrackDataResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        sale_track
+    </select>
+
+
+    <select id="selectById" resultMap="BaseTrackDataResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        sale_track
+        WHERE
+        id=#{id}
+
+    </select>
+
+
+    <select id="selectByIdAndDate" resultMap="BaseTrackDataResultMap">
+        select
+        t.*,u.name as username,m.cus_name
+        from
+        sale_track t join sale_login_user u on t.updateuser = u.id
+        left join sale_main_data m on t.cusid=m.id
+        WHERE
+        cusid=#{0}
+
+            <![CDATA[   and t.happendon >=  DATE_FORMAT(#{1}, '%Y-%m-%d')   ]]>
+
+            <![CDATA[  and t.happendon <= DATE_FORMAT(#{2}, '%Y-%m-%d')    ]]>
+        order by t.happendOn asc
+
+
+    </select>
+
+    <insert id="insertNewTrack" parameterType="SaleTrack" useGeneratedKeys="true" keyProperty="id">
+        insert into sale_track (id, cusid, type, happendOn,comment, updateuser,flowparent)
+        values (#{id}, #{cusId}, #{type}, #{happendOn},#{comment}, #{updateUser}, #{flowParent})
+    </insert>
+
+</mapper>
