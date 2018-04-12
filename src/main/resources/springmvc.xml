@@ -57,6 +57,7 @@
 					<property name="writeAcceptCharset" value="false"/>
 					<property name="supportedMediaTypes">
 						<list>
+							<value>application/json;charset=UTF-8</value>
 							<value>text/html;charset=utf-8</value>
 							<value>text/plain;charset=utf-8</value>
 						</list>
