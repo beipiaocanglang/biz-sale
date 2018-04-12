@@ -1,0 +1,127 @@
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : local
+ Source Server Type    : MySQL
+ Source Server Version : 50719
+ Source Host           : localhost
+ Source Database       : SaleDB
+
+ Target Server Type    : MySQL
+ Target Server Version : 50719
+ File Encoding         : utf-8
+
+ Date: 04/02/2018 18:29:56 PM
+*/
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+--  Table structure for `sale_login_user`
+-- ----------------------------
+DROP TABLE IF EXISTS `sale_login_user`;
+CREATE TABLE `sale_login_user` (
+  `id` varchar(50) NOT NULL COMMENT 'uuid主键',
+  `name` varchar(200) NOT NULL COMMENT '用户姓名',
+  `password` varchar(1000) NOT NULL COMMENT '密码',
+  `department` varchar(50) DEFAULT NULL COMMENT '部门',
+  `loginname` varchar(50) DEFAULT NULL COMMENT '登录名称（邮箱）',
+  `displayImage` varchar(200) DEFAULT NULL COMMENT '用户头像',
+  `role` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+--  Records of `sale_login_user`
+-- ----------------------------
+BEGIN;
+INSERT INTO `sale_login_user` VALUES ('1824954893', 'lisi', 'qmlSyCRy9pqAr2ERkjSf8Q==', '公关部', 'dx', null, '2'), ('21321321312', '苏毅', 'UXLh0+s6hfB6bD/Qzg8ZMg==', 'haha department', 'yeying', null, '1');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `sale_main_data`
+-- ----------------------------
+DROP TABLE IF EXISTS `sale_main_data`;
+CREATE TABLE `sale_main_data` (
+  `id` varchar(50) NOT NULL COMMENT 'uuid主键',
+  `cus_name` varchar(100) DEFAULT NULL COMMENT '客户姓名',
+  `begin_date` timestamp NULL DEFAULT NULL COMMENT '开始时间',
+  `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `seen_policymaker` varchar(50) DEFAULT NULL COMMENT '是否见到决策人标签1是见到0是没有',
+  `policymaker_position` varchar(50) DEFAULT NULL COMMENT '决策人职位',
+  `done_policymaker` varchar(50) DEFAULT NULL COMMENT '是否搞定决策人1是0否',
+  `done_policymaker_position` varchar(50) DEFAULT NULL COMMENT '搞定的决策人是什么职位',
+  `is_real` varchar(50) DEFAULT NULL COMMENT '是否确有其事1是0否',
+  `is_real_comment` varchar(50) DEFAULT NULL COMMENT '确有其事的备注',
+  `five_user_up` varchar(50) DEFAULT NULL COMMENT '是否有5人以上使用产品1是0否',
+  `five_user_up_comment` varchar(50) DEFAULT NULL COMMENT '5人以上使用产品备注',
+  `contact_name` varchar(50) DEFAULT NULL COMMENT '客户联系姓名',
+  `contact_phone` varchar(50) DEFAULT NULL COMMENT '客户联系电话',
+  `contact_email` varchar(50) DEFAULT NULL COMMENT '客户联系邮箱',
+  `important_req` text COMMENT '客户重点需求',
+  `cus_emp_num` int(11) DEFAULT NULL COMMENT '客户雇员人数',
+  `cus_city` varchar(50) DEFAULT NULL COMMENT '客户所在城市',
+  `launch_time` timestamp NULL DEFAULT NULL COMMENT '产品预计上线时间',
+  `close_time` timestamp NULL DEFAULT NULL COMMENT '销售关单预计时间',
+  `next_policymaker_action` varchar(50) DEFAULT NULL,
+  `next_req_action` varchar(50) DEFAULT NULL,
+  `true_close_time` timestamp NULL DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  `uploads` varchar(100) DEFAULT NULL,
+  `assign` varchar(100) DEFAULT NULL,
+  `log_info` text,
+  `priority_level` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+--  Records of `sale_main_data`
+-- ----------------------------
+BEGIN;
+INSERT INTO `sale_main_data` VALUES ('00e5b395ac884c3fb1add1a98cd4e5cf', '博洛尼家具', '2017-12-10 13:56:42', '2017-12-17 00:09:25', 'N', 'HRD', 'N', 'HRD', 'INFO_COLLECTION', 'YES', 'NO', 'NO_PLAT_DOUBT_RESULT', '王蕾', '15510005353', '1@163.com', '培训 考试 微课', '300', '北京', '2018-02-28 00:00:00', '2018-01-31 00:00:00', 'DATEING_POL_PROBLEM', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('00f94b90dafa4764bf137ab25032cca0', '东风汽车技术中心', '2017-12-10 13:47:38', '2017-12-17 00:09:25', 'N', 'BUSINESS_VP', 'N', 'BUSINESS_VP', 'INFO_COLLECTION', 'YES', 'OPN_TRIED', 'YES', '辜胜芬', '027-84285957', 'gusf@dfmc.com.cn', '1、本地化部署（数据安全）\n2、管理层、技术骨干 课程制作作为晋升考评加分项', '2000', '武汉', '2018-10-30 00:00:00', '2018-05-31 00:00:00', 'DATEING_POL', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('02ebf9f5e8994d8abc392f1e5cd602b8', '海灵制药', '2017-12-10 13:22:52', '2017-12-17 00:08:36', 'N', 'BOSS', 'N', 'BOSS', 'PROPOSAL', 'YES', 'NO', 'HAVE_PLAT_NO_GOOD_DOUBT_RESULT', '谢文祺', '15120854939', 'xwq@hailingpharm.com', '移动学习便捷度、价格', '800', '海口', '2018-02-28 00:00:00', '2018-01-31 00:00:00', 'DATEING_POL_PROBLEM', 'HR_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('03efc0faed1e4f86b3d848d1d37e60c0', '大客户', '2017-12-09 03:23:35', '2017-12-17 00:09:25', 'N', 'COMPANY_VP', 'Y', 'COMPANY_VP', 'BID', 'BUS_NO_FEEL', 'ACC_TRIED', 'HAVE_PLAT_NO_GOOD_DOUBT_RESULT', '哈哈', '13888888888', 'asd@asd.com', '12312321就不告诉你', '12321331', '北京', '2017-12-21 00:00:00', '2017-12-22 00:00:00', 'DATEING_POL', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('06212e428aa344ac8f5cd5bb016903f6', '眉州东坡增购', '2017-12-10 14:00:46', '2017-12-17 00:09:25', 'Y', 'COMPANY_VP', 'Y', 'COMPANY_VP', 'MONOPOLY', 'YES', 'PLEASED', 'YES', 'eric', '13911892861', 'eric.yang@mzdpgroup.com', '培训 考试 地图', '6000', '北京', '2018-01-31 00:00:00', '2017-12-30 00:00:00', 'OTHER', 'OTHER', null, 'OPEN', null, null, null, '1'), ('0cba9bedc17441ab89d7306c4e4a66ed', 'waltonbrown', '2017-12-10 13:31:24', '2017-12-17 00:09:44', 'Y', 'HRD', 'N', 'HRD', 'INFO_COLLECTION', 'YES', 'OPN_TRIED', 'YES', 'Catherine', '18816670963', 'catherinezhang@waltonbrown.com', '个性化设置、分散员工学习', '700', '上海', '2018-01-31 00:00:00', '2018-01-31 00:00:00', 'DOING_POL', 'HR_HAVE_REQ', null, 'OPEN', null, null, null, '12'), ('10f829490d1d42e1bfd6f84212188eab', '远洋地产', '2017-12-10 13:46:32', '2017-12-17 00:09:25', 'N', 'BUSINESS_VP', 'N', 'BUSINESS_VP', 'MONOPOLY', 'YES', 'NO', 'YES', '杨超寻', '15901991480', '1@163.com', '培训 考试 好看', '1000', '北京', '2018-01-01 00:00:00', '2017-12-31 00:00:00', 'DOING_POL', 'OTHER', null, 'OPEN', null, null, null, '1'), ('1178765606904291a9a306493eee786e', '新东方在线', '2017-12-10 13:37:34', '2017-12-17 00:09:25', 'Y', 'HRD', 'Y', 'HRD', 'MONOPOLY', 'YES', 'EMP_TRIED', 'YES', '尚鹏', '15010611097', 'shangpeng@koolearn.com.cn', '数据 安全性 分析', '700', '北京', '2018-01-01 00:00:00', '2017-12-30 00:00:00', 'DOING_POL', 'OTHER', null, 'OPEN', null, null, null, '1'), ('14a5c89da66b4108b0cebad6b9184153', '北京蓝海华业科技股份有限公司', '2017-12-10 14:20:59', '2017-12-17 00:09:25', 'Y', 'BOSS', 'N', 'BOSS', 'NO', 'NO_PLAT_DOUBT_RESULT', 'NO', 'NO_PLAT_DOUBT_RESULT', '王杰瑶', '13801283304', '1@163.com', '培训 考试 调研', '300', '北京', '2018-02-28 00:00:00', '2018-01-31 00:00:00', 'DATEING_POL', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('1513429837586', 'suyi112', '2017-12-16 23:23:44', '2018-01-15 22:54:13', 'Y', 'COMPANY_VP', 'N', 'BOSS', 'NFG', 'BUS_NO_FEEL', 'ACC_TRIED', 'HAVE_PLAT_NO_GOOD_DOUBT_RESULT', '122121', '212121', '2212121@121.com', '12121212', '12121', '21211', '2018-01-16 00:00:00', '2018-01-10 00:00:00', 'DATEING_POL', 'BUSINESS_HAVE_REQ', null, 'OPEN', '21321321312', '1824954893', '12121212121', '1'), ('1513440913722', '1212', '2017-12-17 00:15:14', '2017-12-17 01:23:28', 'Y', 'COMPANY_VP', 'Y', 'BOSS', 'NFG', 'BUS_NO_FEEL', 'ACC_TRIED', 'NO_PLAT_DOUBT_RESULT', '11', '11', '11@11.com', '11', '111', '111', '2018-01-02 00:00:00', '2017-12-07 00:00:00', 'DATEING_POL_PROBLEM', 'BUSINESS_HAVE_REQ', null, 'OPEN', '21321321312', '1824954893', '12121', '111'), ('1979c5a5f2d24ab9bed73b4985de8924', '首旅集团', '2017-12-10 14:15:23', '2017-12-17 00:09:25', 'Y', 'OTHER', 'Y', 'OTHER', 'MONOPOLY', 'YES', 'PLEASED', 'YES', '马骞、夏芳、赵丹等', '15810350655', '15810350655@139.com', '增购、活动运营', '40000', '北京', '2018-03-30 00:00:00', '2018-02-28 00:00:00', 'OTHER', 'OTHER', null, 'OPEN', null, null, null, '1'), ('1b68e84d8cef4fffaef29d5592547239', '承德宽广二期', '2017-12-10 13:35:32', '2017-12-17 00:09:25', 'N', 'OTHER', 'N', 'OTHER', 'MONOPOLY', 'YES', 'OPN_TRIED', 'YES', '蔡源', '13020890033', '1@163.com', '分部门下发课件、移动端学习', '4000', '承德', '2018-01-31 00:00:00', '2018-01-31 00:00:00', 'DATEING_POL', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('2ae74ac2e4784c51a6a125711a3e67a7', '恒生电子股份有限公司', '2017-12-10 14:14:32', '2017-12-17 00:09:25', 'N', 'HRD', 'N', 'HRD', 'INFO_COLLECTION', 'YES', 'NO', 'NO_PLAT_DOUBT_RESULT', '谢彬', '13530988564', 'xiebin19929@hundsun.com', '培训 考试 直播', '2000', '深圳', '2018-04-30 00:00:00', '2018-03-31 00:00:00', 'FINDING_POL', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('32d9753c10bb4826830a35b4a12b4157', '万普拉斯', '2017-12-10 13:41:02', '2017-12-17 00:09:25', 'N', 'BOSS', 'N', 'BOSS', 'NO', 'HR_NEED_BUS_MO', 'NO', 'HR_NEED_BUS_NO', '洪主管', '13922997653', '1@163.com', '学习的数据统计、移动学习', '200', '广州', '2018-07-31 00:00:00', '2018-06-30 00:00:00', 'FINDING_POL', 'HR_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('3824f44916e14cb5a9e9f2a66df1e8cc', '思念食品', '2017-12-10 13:51:29', '2017-12-17 00:09:25', 'Y', 'HRD', 'N', 'HRD', 'INFO_COLLECTION', 'YES', 'NO', 'NO_PLAT_DOUBT_RESULT', '贤书宁', '15617681875', '1@163.com', '培训 考试 学习地图', '5000', '郑州', '2018-01-31 00:00:00', '2017-12-31 00:00:00', 'DATEING_POL_PROBLEM', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('3af5406b3d1a44b6b5228b8ba1c4e9f0', '酒仙网', '2017-12-10 14:16:43', '2017-12-17 00:09:25', 'Y', 'T_DIRECTOR', 'N', 'T_DIRECTOR', 'NO', 'NO_PLAT_DOUBT_RESULT', 'NO', 'NO_PLAT_DOUBT_RESULT', '谷华', '18518532555', '1@163.com', '培训 培训课程 考试', '500', '北京', '2018-02-28 00:00:00', '2018-01-31 00:00:00', 'FINDING_POL', 'BUSINESS_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('3b94cb6765884d9c85888dc7f372c024', '城建', '2017-12-10 14:26:17', '2017-12-17 00:09:25', 'Y', 'HRD', 'Y', 'HRD', 'MONOPOLY', 'YES', 'EMP_TRIED', 'YES', '伍丹', '13552813684', '1@163.com', '培训 直播 考试', '3000', '北京', '2017-12-31 00:00:00', '2017-12-31 00:00:00', 'OTHER', 'OTHER', null, 'OPEN', null, null, null, '1'), ('3d3a9750bb4f4ea387963b18ee113cbb', '中车永济电机', '2017-12-10 13:28:58', '2017-12-17 00:09:25', 'N', 'BUSINESS_VP', 'N', 'HR_MANAGER', 'NFG', 'YES', 'OPN_TRIED', 'YES', '王萍', '13835989907', '35228124@qq.com', '培训平台', '5000', '山西永济', '2018-02-28 00:00:00', '2018-01-31 00:00:00', 'DATEING_POL', 'OTHER', null, 'OPEN', null, null, null, '1'), ('41a7aa2da368438996a7985131f07f38', '光大永明保险', '2017-12-10 14:28:33', '2017-12-17 00:09:25', 'N', 'UNKNOW', 'N', 'UNKNOW', 'INFO_COLLECTION', 'HAVE_PLAT_NO_GOOD_DOUBT_RESULT', 'NO', 'HAVE_PLAT_NO_GOOD_DOUBT_RESULT', '张丽波', '13810836336', 'zhanglibo@sunlife-everbright.com', '1、微培训\n2、考试（考试需求严肃，我们的考试系统只能满足部分需求）\n3、微课制作（现有Elearning无此功能）\n4、考勤（现有考情无法定位外勤人员，且数据统计繁琐，需要逐个核对）', '2000', '北京', '2018-12-30 00:00:00', '2018-10-30 00:00:00', 'FINDING_POL', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('44635ac572ef46759ae7ea1bb2bec873', '聚融天下', '2017-12-13 00:01:12', '2017-12-17 00:09:25', 'N', 'BOSS', 'N', 'BOSS', 'NO', 'NO_PLAT_DOUBT_RESULT', 'NO', 'HAVE_PLAT_NO_GOOD_DOUBT_RESULT', '陈曼', '18611657181', '2969979486@qq.com', '员工互动、培训考试', '50', '北京', '2018-01-31 00:00:00', '2017-12-31 00:00:00', 'DATEING_POL', 'HR_HAVE_REQ', null, 'OPEN', null, null, 'asdasdasdsa', '1'), ('44d3da3f23c14c87a4d8d1247384a1cc', '世纪互联', '2017-12-10 14:18:08', '2017-12-17 00:09:25', 'N', 'HRD', 'N', 'HRD', 'NO', 'HAVE_PLAT_NO_GOOD_DOUBT_RESULT', 'NO', 'HAVE_PLAT_NO_GOOD_DOUBT_RESULT', '袁军', '18731318181', 'yuan.jun3@21vianet.com', '培训 微课 直播', '1500', '北京', '2018-02-28 00:00:00', '2018-01-31 00:00:00', 'FINDING_POL_PROBLEM', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('515a48d6e9124bc8b56389df0130fab0', 'amy H5课件制作', '2017-12-10 14:23:59', '2017-12-17 00:09:25', 'Y', 'T_DIRECTOR', 'N', 'T_DIRECTOR', 'MONOPOLY', 'YES', 'OPN_TRIED', 'YES', '赵迎华', '13051009871', '1@163.com', '课程制作', '0', '北京', '2017-12-20 00:00:00', '2017-12-20 00:00:00', 'DATEING_POL', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('52513d865c874408a083dff2663d452c', '冀东油田', '2017-12-10 14:08:18', '2017-12-17 00:09:25', 'N', 'HR_MANAGER', 'N', 'HR_MANAGER', 'INFO_COLLECTION', 'HR_NEED_BUS_MO', 'NO', 'BUS_NO_FEEL', '陈曦', '15127438225', '850205994@qq.com', '1、移动端培训（都是现场作业人员pc不方便）\n2、担心流量问题\n3、考试\n4、对微课制作有兴趣（主要员工都是现场作业人员，经验式的留存很重要）', '200', '唐山', '2018-06-30 00:00:00', '2018-05-15 00:00:00', 'DATEING_POL_PROBLEM', 'HR_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('5411b45b02c54f3dbc104c3897092d20', '戴叔叔', '2017-12-10 14:23:00', '2017-12-17 00:09:25', 'Y', 'BUSINESS_VP', 'Y', 'BUSINESS_VP', 'MONOPOLY', 'YES', 'NO', 'YES', '戴叔叔', '13730607111', '13730607111@139.com', '护工系统，\noa', '8000', '成都', '2018-05-30 00:00:00', '2018-01-15 00:00:00', 'OTHER', 'OTHER', null, 'OPEN', null, null, null, '1'), ('5d3d2e9d4be6476287d4dc94ac888fed', '独立日', '2017-12-10 13:26:28', '2017-12-17 00:09:25', 'Y', 'BOSS', 'N', 'BOSS', 'MONOPOLY', 'YES', 'PLEASED', 'YES', '丁皓', '18101605686', '1@163.com', '培训 考试 签到', '1000', '上海', '2018-02-28 00:00:00', '2018-01-31 00:00:00', 'DOING_POL', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('5e8b048420ab44c49807d53b14c31519', '国能日新', '2017-12-10 13:28:37', '2017-12-17 00:09:25', 'N', 'COMPANY_VP', 'N', 'COMPANY_VP', 'NO', 'HR_NEED_BUS_MO', 'NO', 'HR_NEED_BUS_NO', '王彩云', '18710066929', '1@163.com', '分散员工培训、微课制作', '500', '北京', '2018-04-30 00:00:00', '2018-03-27 00:00:00', 'DATEING_POL_PROBLEM', 'HR_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('5e9825f667fa4b13ab7438ad2d4f0427', '拓米科技', '2017-12-10 13:37:21', '2017-12-17 00:09:25', 'N', 'T_DIRECTOR', 'N', 'T_DIRECTOR', 'INFO_COLLECTION', 'YES', 'NO', 'HR_NEED_BUS_NO', '尹春来', '13865916005', '1@163.com', '员工互动性、价格', '145', '上海', '2018-01-31 00:00:00', '2018-01-31 00:00:00', 'DATEING_POL', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('685f2089ed1d4b1dbd9c319f3403ab01', '影儿时尚集团', '2017-12-10 14:14:37', '2017-12-17 00:09:25', 'Y', 'HRD', 'N', 'HRD', 'NFG', 'YES', 'EMP_TRIED', 'YES', '阮淑梅', '13682325003', '1@163.com', '培训 考试 体验', '2000', '深圳', '2018-02-28 00:00:00', '2018-01-31 00:00:00', 'DOING_POL', 'OTHER', null, 'OPEN', null, null, null, '1'), ('7ca02a81dcc54de991e19e7aef6d53d5', '北汽鹏龙', '2017-12-10 13:25:00', '2017-12-17 00:09:25', 'Y', 'HR_MANAGER', 'Y', 'HR_MANAGER', 'MONOPOLY', 'YES', 'PLEASED', 'YES', '王刚', '18600681611', 'wanggang@bjrocar.com', '销售课程制作', '1400', '北京', '2018-01-15 00:00:00', '2017-12-18 00:00:00', 'OTHER', 'OTHER', null, 'OPEN', null, null, null, '1'), ('7f957240fa2748f1a7f5600344162504', '四川明星电缆股份有限公司', '2017-12-10 13:33:17', '2017-12-17 00:09:25', 'N', 'BOSS', 'N', 'BOSS', 'INFO_COLLECTION', 'YES', 'NO', 'HR_NEED_BUS_NO', '吴冬梅', '18583315800', 'wudongmei@mxdlgroup.cn', '移动端学习、课程内容', '800', '四川', '2018-02-28 00:00:00', '2018-02-28 00:00:00', 'DATEING_POL', 'HR_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('8137dbaf7f764da9a7b7348cf5c0dd3c', '顺鑫控股', '2017-12-10 14:18:03', '2017-12-17 00:09:25', 'Y', 'OTHER', 'Y', 'OTHER', 'NFG', 'YES', 'NO', 'NO_PLAT_DOUBT_RESULT', '赵闯', '18600578668', 'zhaochuang@shunxinnongye.com', 'SAP BI 2期', '10000', '北京', '2018-05-30 00:00:00', '2017-12-30 00:00:00', 'OTHER', 'OTHER', null, 'OPEN', null, null, null, '1'), ('84ca35cc2da64ca5ba60aac26ccd0569', '金银岛', '2017-12-10 13:54:39', '2017-12-17 00:09:25', 'N', 'COMPANY_VP', 'N', 'COMPANY_VP', 'INFO_COLLECTION', 'YES', 'NO', 'BUS_NO_FEEL', '石磊', '13810378199', '1@163.com', '培训 培训课程 考试', '200', '北京', '2018-01-31 00:00:00', '2017-12-31 00:00:00', 'DATEING_POL_PROBLEM', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('85fb56530b454f259e6ec3a0e13119ed', '阳光保险', '2017-12-10 14:20:51', '2017-12-17 00:09:25', 'Y', 'BUSINESS_VP', 'N', 'UNKNOW', 'NO', 'YES', 'POL_TRIED_NORESULT', 'YES', '李长明', '15201621983', 'lichangming-ghq@sinosig.com', 'winback', '200000', '北京', '2018-12-30 00:00:00', '2018-10-30 00:00:00', 'DOING_POL_PROBELM', 'OTHER', null, 'OPEN', null, null, null, '1'), ('8cddb776ce954210bacdeb151e4afef9', '万达学院（三部）', '2017-12-10 13:55:43', '2017-12-17 00:09:25', 'N', 'COMPANY_COL_PREX', 'N', 'UNKNOW', 'PRE_BID', 'YES', 'NO', 'YES', '马小静', '15230659669', 'maxiaojing@wanda.com.cn', '课程制作', '5000', '廊坊', '2018-02-28 00:00:00', '2018-01-31 00:00:00', 'FINDING_POL', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('8dbd71cb7c3c4c57bf82811708eda3d5', '首创热力', '2017-12-10 14:32:56', '2017-12-17 00:09:25', 'N', 'OTHER', 'N', 'OTHER', 'INFO_COLLECTION', 'YES', 'NO', 'NO_PLAT_DOUBT_RESULT', 'jolly', '15210763153', '1@163.com', '培训、考试、数据统计', '700', '北京', '2018-06-26 00:00:00', '2018-05-29 00:00:00', 'OTHER', 'OTHER', null, 'OPEN', null, null, null, '1'), ('908065fac37c4433b4087ce37f908f4d', '金风国际集团', '2017-12-10 13:34:52', '2017-12-17 00:09:25', 'N', 'BUSINESS_VP', 'N', 'T_MANAGER', 'INFO_COLLECTION', 'YES', 'OPN_TRIED', 'YES', '匡莹', '13910503246', 'kuangying@goldwind.com.cn', '1、多语言（英语！！西语、葡语、泰语）\n2、跨国使用体验（网络体验）', '800', '北京', '2018-06-30 00:00:00', '2018-04-30 00:00:00', 'DATEING_POL', 'OTHER', null, 'OPEN', null, null, null, '1'), ('932b81b46ab54e06a303348a2f5cdec7', '中国东方机电', '2017-12-10 14:02:02', '2017-12-17 00:09:25', 'N', 'BUSINESS_VP', 'N', 'BUSINESS_VP', 'INFO_COLLECTION', 'HAVE_PLAT_NO_GOOD_DOUBT_RESULT', 'NO', 'BUS_NO_FEEL', '缪老师', '13890266667', '1046434474@qq.com', '暂不确定，做过远程演示沟通，目前在用时代光华，明年一季度到期。有重选供应商的计划。\n客户期望可以上门交流，交流中对类似喜马拉雅的外部课程接入很有兴趣', '8000', '成都', '2018-04-30 00:00:00', '2018-03-31 00:00:00', 'FINDING_POL', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('9798f2b197ab4e8587e4c40e13776232', '今典集团', '2017-12-10 14:09:46', '2017-12-17 00:09:25', 'N', 'COMPANY_VP', 'N', 'COMPANY_VP', 'PROPOSAL', 'YES', 'NO', 'YES', '谢东记', '15383862013', '1@163.com', '培训 考试 地图', '10000', '北京', '2018-02-28 00:00:00', '2018-01-31 00:00:00', 'DOING_POL', 'OTHER', null, 'OPEN', null, null, null, '1'), ('a27c6515129f4d838e448435df3937b3', '黑口袋', '2017-12-10 13:29:42', '2017-12-17 00:09:25', 'Y', 'BOSS', 'N', 'BOSS', 'MONOPOLY', 'YES', 'EMP_TRIED', 'YES', '丁皓', '18688886799', '1@163.com', '培训 考试 数据', '1000', '广州', '2018-01-31 00:00:00', '2018-01-31 00:00:00', 'DOING_POL', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('a3c5da142fca4a68880e6c7893c6ccf4', '蜜芽宝贝', '2017-12-10 14:06:26', '2017-12-17 00:09:25', 'N', 'BOSS', 'N', 'BOSS', 'INFO_COLLECTION', 'YES', 'OPN_TRIED', 'YES', '刘伟芳', '13810729676', '1@163.com', '多方会议', '500', '北京', '2018-01-31 00:00:00', '2017-12-31 00:00:00', 'DOING_POL', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('b312134278174d5ca6644906c8053c51', '寓米网络', '2017-12-10 13:26:19', '2017-12-17 00:09:25', 'N', 'BOSS', 'N', 'BOSS', 'NO', 'BUS_NO_FEEL', 'NO', 'HR_NEED_BUS_NO', '任诗思', '13580599150', 'ss176@iyumi.com', '分散员工培训', '500', '广州', '2018-03-31 00:00:00', '2018-03-21 00:00:00', 'DATEING_POL_PROBLEM', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('b539603e42be4d7da770e80086142f69', '百盛餐饮新一轮课件制作', '2017-12-10 14:25:43', '2017-12-17 00:09:25', 'Y', 'T_MANAGER', 'Y', 'T_MANAGER', 'MONOPOLY', 'YES', 'OPN_TRIED', 'YES', '余佩君', '15001989837', '1@163.com', '课程制作', '0', '上海', '2017-12-31 00:00:00', '2017-12-20 00:00:00', 'DOING_POL', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('b9fc03e1dd1242c3b54db201eb7d28b3', '万达学院（一部）', '2017-12-10 13:52:35', '2017-12-17 00:09:25', 'N', 'COMPANY_COL_PREX', 'N', 'T_MANAGER', 'PRE_BID', 'YES', 'OPN_TRIED', 'YES', '赵忠钢', '13621333078', 'zhaozhonggang1@wanda.com.cn', '微课制作工具', '5000', '廊坊', '2018-03-30 00:00:00', '2018-01-31 00:00:00', 'FINDING_POL_PROBLEM', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('badf8795f17f4ac7b602eebea2f07712', '中源陶瓷', '2017-12-10 13:39:03', '2017-12-17 00:09:25', 'N', 'BOSS', 'N', 'BOSS', 'INFO_COLLECTION', 'YES', 'NO', 'HAVE_PLAT_NO_GOOD_DOUBT_RESULT', '莫绮婷', '13250370712', '1@163.com', '用户界面自定义、学习数据统计、多端学习', '2000', '佛山', '2018-06-30 00:00:00', '2018-06-30 00:00:00', 'FINDING_POL', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('bddb0b3ec3524b26b1eb8c4b3aa2bb7f', '恩布拉科雪花', '2017-12-10 13:40:44', '2017-12-17 00:09:25', 'Y', 'HRD', 'Y', 'T_MANAGER', 'MONOPOLY', 'YES', 'EMP_TRIED', 'YES', '刘莹', '13810912740', 'yinghr.liu@embraco.com', '增购', '1800', '北京', '2018-03-30 00:00:00', '2018-02-28 00:00:00', 'DOING_POL', 'OTHER', null, 'OPEN', null, null, null, '1'), ('cb595fcc6b8d4245894221835d97f5ce', '沁园增购', '2017-12-10 14:10:21', '2017-12-17 00:09:25', 'N', 'T_DIRECTOR', 'N', 'T_DIRECTOR', 'MONOPOLY', 'YES', 'OPN_TRIED', 'YES', '许敏', '15057442955', 'min.xu@qinyuan.cn', '培训', '1500', '宁波', '2018-01-31 00:00:00', '2017-12-31 00:00:00', 'FINDING_POL', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('e62ee7a3812a4212bccc7101e606a626', '中智', '2017-12-10 14:19:08', '2017-12-17 00:09:25', 'Y', 'BUSINESS_VP', 'Y', 'BUSINESS_VP', 'NO', 'YES', 'PLEASED', 'YES', '肖彬彬', '11111111111', '1@163.com', '培训 定制 考试', '1000', '北京', '2017-04-01 00:00:00', '2017-03-01 00:00:00', 'OTHER', 'OTHER', null, 'OPEN', null, null, null, '1'), ('e92c800e301440e1a9f889c24ea817e0', '金光纸业', '2017-12-10 14:37:09', '2017-12-17 00:09:25', 'Y', 'COMPANY_COL_PREX', 'N', 'COMPANY_COL_PREX', 'INFO_COLLECTION', 'YES', 'NO', 'HAVE_PLAT_NO_GOOD_DOUBT_RESULT', '方女士', '13501697210', '1@163.com', '企业大学教务系统', '10000', '上海', '2018-06-26 00:00:00', '2018-05-23 00:00:00', 'OTHER', 'OTHER', null, 'OPEN', null, null, null, '1'), ('eb2c600c2c824f5285bb69462abf984a', '蛋壳公寓增购', '2017-12-10 13:55:41', '2017-12-17 00:09:25', 'N', 'HRD', 'N', 'HRD', 'MONOPOLY', 'YES', 'NO', 'YES', '文博', '15117998087', '1@163.com', 'wenbo@danke.com', '2000', '北京', '2018-02-28 00:00:00', '2018-01-31 00:00:00', 'DATEING_POL', 'OTHER', null, 'OPEN', null, null, null, '1'), ('ec495b8a73ab48058162cdab55ecb0f4', '二狼狐轩', '2017-12-10 13:34:24', '2017-12-17 00:09:25', 'N', 'BOSS', 'N', 'BOSS', 'MONOPOLY', 'YES', 'EMP_TRIED', 'YES', '蔡创', '18890229606', '1@163.com', '培训 考试 直播', '2000', '株洲', '2018-01-01 00:00:00', '2017-12-30 00:00:00', 'DOING_POL', 'OTHER', null, 'OPEN', null, null, null, '1'), ('f18d8e01ef564fc5ad76955af20373c7', 'UR', '2017-12-10 13:41:41', '2017-12-17 00:09:25', 'N', 'BUSINESS_VP', 'N', 'BUSINESS_VP', 'PROPOSAL', 'YES', 'EMP_TRIED', 'YES', '左佳权', '13924204756', '1@163.com', '培训 内容 数据同步', '4000', '广州', '2018-03-30 00:00:00', '2018-01-31 00:00:00', 'DOING_POL', 'OTHER', null, 'OPEN', null, null, null, '1'), ('fb15422112124a8eaea11eb0e71edbe5', '奥琦玮信息科技（北京）有限公司', '2017-12-10 14:01:07', '2017-12-17 00:09:25', 'N', 'OTHER', 'N', 'OTHER', 'INFO_COLLECTION', 'YES', 'OPN_TRIED', 'YES', '赵霞', '18810711290', '1@163.com', '培训 考试 调研', '500', '北京', '2018-01-31 00:00:00', '2017-12-31 00:00:00', 'DOING_POL', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1'), ('fe79803963e34c9cba14a9224aa9584b', '朗姿股份', '2017-12-10 13:44:35', '2017-12-17 00:09:25', 'N', 'T_MANAGER', 'N', 'T_MANAGER', 'INFO_COLLECTION', 'YES', 'NO', 'HAVE_PLAT_NO_GOOD_DOUBT_RESULT', '李老师', '13810887691', '1@163.com', '傻瓜式平台操作，数据与spa软件对接，线上与线下培训数据统一', '2200', '北京', '2018-01-31 00:00:00', '2017-12-31 00:00:00', 'DATEING_POL', 'COMPANY_HAVE_REQ', null, 'OPEN', null, null, null, '1');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `sale_track`
+-- ----------------------------
+DROP TABLE IF EXISTS `sale_track`;
+CREATE TABLE `sale_track` (
+  `id` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `cusid` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
+  `createdon` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `happendon` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `type` int(11) DEFAULT NULL,
+  `comment` text COLLATE utf8mb4_unicode_ci,
+  `updateuser` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
+  `deleted` int(11) DEFAULT '0',
+  `flowparent` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+--  Records of `sale_track`
+-- ----------------------------
+BEGIN;
+INSERT INTO `sale_track` VALUES ('19932f43595946cb845de5bb5d9457a5', '1513429837586', '2018-01-16 04:58:37', '2018-01-17 00:00:00', '1', '还傻傻还是', '21321321312', '0', null), ('26326e218be94c3f9c9c8564b54c1ccd', '1513429837586', '2018-01-16 04:55:06', '2018-01-09 00:00:00', '1', '驱蚊器无群无群', '21321321312', '0', null), ('54798abf2a024d5d91229382b9f0daa3', '1513429837586', '2018-01-16 04:54:53', '2018-01-16 00:00:00', '1', '1212121', '21321321312', '0', null), ('670cb61be95b44a68ba6c69ede2346a2', '1513429837586', '2018-01-16 04:55:30', '2018-01-10 00:00:00', '2', '阿萨飒飒撒', '21321321312', '0', 'ad698de3fc854ccca5edd72efc1d162d'), ('82b45b45539e44b18619b6ce4a7e7c74', '1513429837586', '2018-01-16 04:54:50', '2018-01-16 00:00:00', '1', '1212121', '21321321312', '0', null), ('9573903f50934212b4e6dd173df25b3c', '1513429837586', '2018-01-16 04:58:32', '2018-01-10 00:00:00', '2', '', '21321321312', '0', 'ad698de3fc854ccca5edd72efc1d162d'), ('ad698de3fc854ccca5edd72efc1d162d', '1513429837586', '2018-01-16 04:55:22', '2018-01-10 00:00:00', '1', '啊飒飒阿萨', '21321321312', '0', null), ('ad8c9be21b1a461f89636af0331b2b01', '1513429837586', '2018-01-16 04:58:43', '2018-01-17 00:00:00', '2', '阿莎JSAA啊', '21321321312', '0', '19932f43595946cb845de5bb5d9457a5'), ('cfad8e91a8654e50a327526de0fe0dc8', '1513429837586', '2018-01-16 04:54:59', '2018-01-16 00:00:00', '1', 'as撒撒', '21321321312', '0', null);
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `sale_user_role`
+-- ----------------------------
+DROP TABLE IF EXISTS `sale_user_role`;
+CREATE TABLE `sale_user_role` (
+  `id` varchar(50) NOT NULL,
+  `userid` varchar(50) DEFAULT NULL,
+  `role` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+--  Records of `sale_user_role`
+-- ----------------------------
+BEGIN;
+INSERT INTO `sale_user_role` VALUES ('1', '21321321312', '1');
+COMMIT;
+
+SET FOREIGN_KEY_CHECKS = 1;
